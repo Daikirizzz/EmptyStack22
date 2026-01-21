@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Lista de Tareas</title>
+    <title>Mi Amor por Natalia ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,302 +13,351 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            overflow-x: hidden;
         }
 
-        .container {
+        .editor-panel {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 350px;
+            height: 100vh;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 500px;
-            padding: 40px;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 1000;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        header h1 {
+        .editor-panel h3 {
             color: #333;
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
         }
 
-        header p {
-            color: #666;
-            font-size: 1em;
+        .form-group {
+            margin-bottom: 20px;
         }
 
-        .input-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
+        .form-group label {
+            display: block;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
         }
 
-        #taskInput {
-            flex: 1;
-            padding: 12px 15px;
+        .form-group input[type="text"],
+        .form-group input[type="file"],
+        .form-group input[type="number"],
+        .form-group input[type="color"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
             border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1em;
+            border-radius: 6px;
+            font-size: 0.9em;
             transition: border-color 0.3s;
         }
 
-        #taskInput:focus {
+        .form-group input:focus,
+        .form-group select:focus {
             outline: none;
             border-color: #667eea;
         }
 
-        #addBtn {
-            padding: 12px 25px;
+        .btn-apply {
+            width: 100%;
+            padding: 12px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 1em;
             font-weight: bold;
             transition: transform 0.2s;
         }
 
-        #addBtn:hover {
+        .btn-apply:hover {
             transform: translateY(-2px);
         }
 
-        #addBtn:active {
-            transform: translateY(0);
-        }
-
-        .task-list {
-            list-style: none;
-        }
-
-        .task-item {
-            background: #f9f9f9;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: all 0.3s;
-            border-left: 4px solid #667eea;
-        }
-
-        .task-item:hover {
-            background: #f0f0f0;
-            transform: translateX(5px);
-        }
-
-        .task-item.completed {
-            opacity: 0.6;
-            border-left-color: #4caf50;
-        }
-
-        .task-item.completed .task-text {
-            text-decoration: line-through;
-            color: #999;
-        }
-
-        .task-checkbox {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: #667eea;
-        }
-
-        .task-text {
-            flex: 1;
-            color: #333;
-            font-size: 1em;
-        }
-
-        .delete-btn {
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .delete-btn:hover {
-            background: #ff5252;
-        }
-
-        .empty-message {
-            text-align: center;
-            color: #999;
+        main {
+            margin-right: 350px;
             padding: 40px 20px;
-            font-size: 1.1em;
-        }
-
-        .stats {
+            min-height: 100vh;
             display: flex;
-            justify-content: space-around;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px solid #e0e0e0;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-        .stat {
+        .hero {
+            background-size: cover;
+            background-position: center;
+            background-color: rgba(102, 126, 234, 0.8);
+            background-blend-mode: overlay;
+            border-radius: 20px;
+            padding: 80px 40px;
             text-align: center;
+            color: white;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
         }
 
-        .stat-number {
-            font-size: 1.8em;
-            font-weight: bold;
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .messages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 50px;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .message-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .message-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .message-card h3 {
             color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
         }
 
-        .stat-label {
+        .message-card p {
             color: #666;
-            font-size: 0.9em;
-            margin-top: 5px;
+            line-height: 1.6;
         }
 
-        footer {
-            text-align: center;
-            margin-top: 30px;
-            color: #999;
-            font-size: 0.9em;
+        .emoji {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .love-animation {
+            display: inline-block;
+            animation: heartBeat 1.5s infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            50% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .editor-panel {
+                width: 100%;
+                height: auto;
+                position: relative;
+                box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            main {
+                margin-right: 0;
+                padding: 20px 10px;
+            }
+
+            .hero {
+                padding: 40px 20px;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .hero p {
+                font-size: 1.1em;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>✓ Mi Lista de Tareas</h1>
-            <p>Organiza tu día de manera efectiva</p>
-        </header>
+    <div class="editor-panel">
+        <h3>⚙️ Editor de Estilos</h3>
 
-        <div class="input-container">
-            <input 
-                type="text" 
-                id="taskInput" 
-                placeholder="Añade una nueva tarea..." 
-                autocomplete="off"
-            >
-            <button id="addBtn">Añadir</button>
+        <div class="form-group">
+            <label>📷 Foto de Fondo</label>
+            <input type="file" id="backgroundImage" accept="image/*">
         </div>
 
-        <ul class="task-list" id="taskList">
-            <div class="empty-message">No hay tareas aún. ¡Crea una!</div>
-        </ul>
-
-        <div class="stats">
-            <div class="stat">
-                <div class="stat-number" id="totalTasks">0</div>
-                <div class="stat-label">Total</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number" id="completedTasks">0</div>
-                <div class="stat-label">Completadas</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number" id="pendingTasks">0</div>
-                <div class="stat-label">Pendientes</div>
-            </div>
+        <div class="form-group">
+            <label>Opacidad del Fondo (0-1)</label>
+            <input type="number" id="bgOpacity" min="0" max="1" step="0.1" value="0.8">
         </div>
 
-        <footer>Footer del sitio - Mi primer To-Do List 2026</footer>
+        <div class="form-group">
+            <label>🎨 Color de Fondo Secundario</label>
+            <input type="color" id="bgColor" value="#667eea">
+        </div>
+
+        <hr style="margin: 20px 0; border: none; border-top: 2px solid #e0e0e0;">
+
+        <div class="form-group">
+            <label>Fuente del Título</label>
+            <select id="titleFont">
+                <option value="'Playfair Display', serif">Playfair Display</option>
+                <option value="'Dancing Script', cursive">Dancing Script</option>
+                <option value="'Poppins', sans-serif">Poppins</option>
+                <option value="Georgia, serif">Georgia</option>
+                <option value="'Times New Roman', serif">Times New Roman</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Tamaño del Título (em)</label>
+            <input type="number" id="titleSize" min="1" max="5" step="0.1" value="3.5">
+        </div>
+
+        <div class="form-group">
+            <label>🎨 Color del Título</label>
+            <input type="color" id="titleColor" value="#ffffff">
+        </div>
+
+        <div class="form-group">
+            <label>Nuevo Título</label>
+            <input type="text" id="titleText" placeholder="Escribe aquí..." value="Mi Amor por Natalia">
+        </div>
+
+        <hr style="margin: 20px 0; border: none; border-top: 2px solid #e0e0e0;">
+
+        <div class="form-group">
+            <label>Fuente del Párrafo</label>
+            <select id="paragraphFont">
+                <option value="'Poppins', sans-serif">Poppins</option>
+                <option value="'Dancing Script', cursive">Dancing Script</option>
+                <option value="Georgia, serif">Georgia</option>
+                <option value="'Times New Roman', serif">Times New Roman</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Tamaño del Párrafo (em)</label>
+            <input type="number" id="paragraphSize" min="0.5" max="3" step="0.1" value="1.5">
+        </div>
+
+        <div class="form-group">
+            <label>🎨 Color del Párrafo</label>
+            <input type="color" id="paragraphColor" value="#ffffff">
+        </div>
+
+        <div class="form-group">
+            <label>Nuevo Párrafo</label>
+            <textarea id="paragraphText" style="width: 100%; height: 100px; padding: 10px; border: 2px solid #e0e0e0; border-radius: 6px; font-family: Poppins; resize: vertical;" placeholder="Escribe tu mensaje...">Eres la razón de mi sonrisa cada día. Tu amor ilumina mi vida de una manera que no puedo explicar con palabras. Te amo más cada segundo que pasa.</textarea>
+        </div>
+
+        <button class="btn-apply" onclick="applyChanges()">✨ Aplicar Cambios</button>
     </div>
 
+    <main>
+        <div class="hero">
+            <h1 class="love-animation">❤️ Mi Amor por Natalia ❤️</h1>
+            <p>Eres la razón de mi sonrisa cada día. Tu amor ilumina mi vida de una manera que no puedo explicar con palabras. Te amo más cada segundo que pasa.</p>
+        </div>
+
+        <div class="messages">
+            <div class="message-card">
+                <div class="emoji">😍</div>
+                <h3>Tu Belleza</h3>
+                <p>Cada vez que te veo, mi corazón late más fuerte. Tu sonrisa es lo más hermoso que he visto jamás.</p>
+            </div>
+
+            <div class="message-card">
+                <div class="emoji">💕</div>
+                <h3>Tu Amor</h3>
+                <p>Tu amor me hace sentir especial, único e importante. Eres mi persona favorita en todo el mundo.</p>
+            </div>
+
+            <div class="message-card">
+                <div class="emoji">✨</div>
+                <h3>Mi Felicidad</h3>
+                <p>Contigo encontré la felicidad verdadera. Cada momento a tu lado es un regalo precioso que atesoro.</p>
+            </div>
+
+            <div class="message-card">
+                <div class="emoji">🌟</div>
+                <h3>Mi Inspiración</h3>
+                <p>Eres mi inspiración para ser mejor persona cada día. Tu fuerza y bondad me motivan constantemente.</p>
+            </div>
+
+            <div class="message-card">
+                <div class="emoji">🎵</div>
+                <h3>Mi Música</h3>
+                <p>Tu risa es la mejor música que mis oídos pueden escuchar. Tu voz es mi melodía favorita.</p>
+            </div>
+
+            <div class="message-card">
+                <div class="emoji">🌹</div>
+                <h3>Mi Sueño</h3>
+                <p>Envejecer contigo es mi mayor sueño. Quiero compartir mi vida entera a tu lado, Natalia.</p>
+            </div>
+        </div>
+    </main>
+
     <script>
-        const taskInput = document.getElementById('taskInput');
-        const addBtn = document.getElementById('addBtn');
-        const taskList = document.getElementById('taskList');
-        const totalTasksEl = document.getElementById('totalTasks');
-        const completedTasksEl = document.getElementById('completedTasks');
-        const pendingTasksEl = document.getElementById('pendingTasks');
+        function applyChanges() {
+            const hero = document.querySelector('.hero');
+            const titleEl = document.querySelector('.hero h1');
+            const paragraphEl = document.querySelector('.hero p');
 
-        // Cargar tareas desde localStorage
-        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-
-        function renderTasks() {
-            taskList.innerHTML = '';
-
-            if (tasks.length === 0) {
-                taskList.innerHTML = '<div class="empty-message">No hay tareas aún. ¡Crea una!</div>';
-                updateStats();
-                return;
+            // Imagen de fondo
+            const imageInput = document.getElementById('backgroundImage');
+            if (imageInput.files && imageInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    hero.style.backgroundImage = `url('${e.target.result}')`;
+                };
+                reader.readAsDataURL(imageInput.files[0]);
             }
 
-            tasks.forEach((task, index) => {
-                const li = document.createElement('li');
-                li.className = `task-item ${task.completed ? 'completed' : ''}`;
-                li.innerHTML = `
-                    <input 
-                        type="checkbox" 
-                        class="task-checkbox" 
-                        ${task.completed ? 'checked' : ''}
-                        onchange="toggleTask(${index})"
-                    >
-                    <span class="task-text">${task.text}</span>
-                    <button class="delete-btn" onclick="deleteTask(${index})">Eliminar</button>
-                `;
-                taskList.appendChild(li);
-            });
+            // Opacidad
+            const opacity = document.getElementById('bgOpacity').value;
+            const color = document.getElementById('bgColor').value;
+            hero.style.backgroundColor = color;
+            hero.style.backgroundBlendMode = 'overlay';
+            hero.style.opacity = opacity;
 
-            updateStats();
+            // Título
+            titleEl.style.fontFamily = document.getElementById('titleFont').value;
+            titleEl.style.fontSize = document.getElementById('titleSize').value + 'em';
+            titleEl.style.color = document.getElementById('titleColor').value;
+            titleEl.textContent = document.getElementById('titleText').value;
+
+            // Párrafo
+            paragraphEl.style.fontFamily = document.getElementById('paragraphFont').value;
+            paragraphEl.style.fontSize = document.getElementById('paragraphSize').value + 'em';
+            paragraphEl.style.color = document.getElementById('paragraphColor').value;
+            paragraphEl.textContent = document.getElementById('paragraphText').value;
+
+            alert('✨ ¡Cambios aplicados correctamente!');
         }
-
-        function addTask() {
-            const taskText = taskInput.value.trim();
-
-            if (taskText === '') {
-                alert('Por favor, escribe una tarea');
-                return;
-            }
-
-            tasks.push({ text: taskText, completed: false });
-            taskInput.value = '';
-            saveTasks();
-            renderTasks();
-            taskInput.focus();
-        }
-
-        function deleteTask(index) {
-            tasks.splice(index, 1);
-            saveTasks();
-            renderTasks();
-        }
-
-        function toggleTask(index) {
-            tasks[index].completed = !tasks[index].completed;
-            saveTasks();
-            renderTasks();
-        }
-
-        function updateStats() {
-            const total = tasks.length;
-            const completed = tasks.filter(t => t.completed).length;
-            const pending = total - completed;
-
-            totalTasksEl.textContent = total;
-            completedTasksEl.textContent = completed;
-            pendingTasksEl.textContent = pending;
-        }
-
-        function saveTasks() {
-            localStorage.setItem('tasks', JSON.stringify(tasks));
-        }
-
-        addBtn.addEventListener('click', addTask);
-        taskInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') addTask();
-        });
-
-        renderTasks();
     </script>
 </body>
 </html>
